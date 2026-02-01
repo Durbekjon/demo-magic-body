@@ -1,0 +1,7 @@
+# Magic Body - Fun-House Body Effects
+
+## Requirements for Packaging
+opencv-python>=4.8.0
+mediapipe>=0.10.0
+numpy>=1.24.0
+pyinstaller>=5.0.0

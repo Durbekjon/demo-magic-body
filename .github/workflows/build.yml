@@ -1,0 +1,58 @@
+name: Build Desktop Apps
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install opencv-python mediapipe numpy pyinstaller
+      
+      - name: Build macOS app
+        run: |
+          pyinstaller --onefile --windowed --name MagicBody \
+            --add-data "pose_landmarker.task:." \
+            --add-data "selfie_segmenter.tflite:." \
+            app.py
+      
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MagicBody-macOS
+          path: dist/MagicBody.app
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install opencv-python mediapipe numpy pyinstaller
+      
+      - name: Build Windows exe
+        run: |
+          pyinstaller --onefile --windowed --name MagicBody --add-data "pose_landmarker.task;." --add-data "selfie_segmenter.tflite;." app.py
+      
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MagicBody-Windows
+          path: dist/MagicBody.exe

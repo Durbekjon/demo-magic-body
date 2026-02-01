@@ -68,7 +68,9 @@ class AITransformer:
             
         except Exception as e:
             print(f"Failed to load AI model: {e}")
-            print("Install dependencies: pip install diffusers transformers accelerate torch")
+            if "MT5Tokenizer" in str(e) or "sentencepiece" in str(e):
+                print("MISSING DEPENDENCY: Please run: pip install sentencepiece protobuf")
+            print("Install dependencies: pip install diffusers transformers accelerate torch sentencepiece")
             return False
     
     def transform(self, image, mode=1, strength=0.6, steps=4):

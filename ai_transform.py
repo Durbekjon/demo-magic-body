@@ -43,11 +43,12 @@ class AITransformer:
     def load(self):
         """Load the model (call once at startup)."""
         try:
-            from diffusers import AutoPipelineForImage2Image
+            # Use specific pipeline to avoid importing unrelated buggy modules (like Kandinsky/Hunyuan)
+            from diffusers import StableDiffusionXLImg2ImgPipeline
             
             print(f"Loading {self.model_id} on {self.device}...")
             
-            self.pipe = AutoPipelineForImage2Image.from_pretrained(
+            self.pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
                 self.model_id,
                 torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
                 variant="fp16" if self.device == "cuda" else None,

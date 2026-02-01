@@ -1,7 +1,17 @@
-# Magic Body - Fun-House Body Effects
+# AI Body Transformation Requirements
+# Installing specific versions known to work well
 
-## Requirements for Packaging
-opencv-python>=4.8.0
-mediapipe>=0.10.0
 numpy>=1.24.0
-pyinstaller>=5.0.0
+requests>=2.31.0
+pillow>=10.0.0
+scipy>=1.10.0
+
+# AI Core
+diffusers>=0.24.0
+transformers>=4.36.0
+accelerate>=0.25.0
+safetensors>=0.4.1
+
+# Torch (standard CPU/MPS version for Mac)
+torch>=2.1.0
+torchvision>=0.16.0

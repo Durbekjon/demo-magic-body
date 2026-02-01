@@ -3,3 +3,5 @@ venv
 build
 __pycache__
 .env
+libs
+libs_ai
